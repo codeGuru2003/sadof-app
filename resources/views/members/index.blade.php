@@ -7,31 +7,15 @@
     <div class="card-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
+                {{-- <div class="col-sm-4">
                     <form action="{{ route('members.upload') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">
                             <input type="file" class="form-control" name="csv_file" id="inputGroupFileAddon04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept=".csv,.txt">
                             <input class="btn btn-success" type="submit" value="Upload" id="inputGroupFileAddon04">
                         </div>
-                        {{-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input type="file" name="csv_file" id="csvfile" title="Upload Member File" class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <button class="btn btn-success">Upload Members</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </form><br>
-                </div>
+                </div> --}}
                 {{-- <div class="col-sm-2">
                     <form action="{{ route('members.export') }}" method="GET">
                         <button class="btn btn-success">Export Members</button>
@@ -45,7 +29,7 @@
                             <input name="endDate" type="date" aria-label="to" class="form-control">
                             <input class="btn btn-success" type="submit" value="Search" id="inputGroupFileAddon04">
                         </div>
-                    </form>
+                    </form><br>
                 </div>
             </div>
         </div>
@@ -77,15 +61,15 @@
                             <td>
                                <div class="row">
                                     <div class="col-4 col-md-4 col-sm-4">
-                                        <a href="{{ route('members.edit',['id' => $member->id ]) }}" class="btn btn-warning w-100">Edit</a>
+                                        <a href="{{ route('members.edit',['id' => $member->id ]) }}" class="btn btn-warning w-100"><i class="fas fa-edit text-light"></i></a>
                                     </div>
                                     <div class="col-4 col-md-4 col-sm-4">
-                                        <a href="{{ route('members.details',['id' => $member->id ]) }}" class="btn btn-primary w-100">Details</a>
+                                        <a href="{{ route('members.details',['id' => $member->id ]) }}" class="btn btn-primary w-100"><i class="fas fa-book"></i></a>
                                     </div>
                                     <div class="col-4 col-md-4 col-sm-4">
                                         <form action="{{ route('members.delete',['id' => $member->id ]) }}" method="POST">
                                             @csrf
-                                            <button class="btn btn-danger w-100">Delete</button>
+                                            <button class="btn btn-danger w-100"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </div>
                                </div>
