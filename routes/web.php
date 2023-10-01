@@ -7,6 +7,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\PositionController;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -22,9 +23,18 @@ use Illuminate\Auth\Middleware\Authenticate;
 */
 
 Route::get('/', function () {
-    return view('home/index', ['title' => 'Dashboard']);
+    $totalpayment = DB::table('payments')->sum('amount');
+    $totalmember = DB::table('members')->count('*');
+    $totalmales = DB::table('members')->where('gender_id','=','1')->count('*');
+    $totalfemales = DB::table('members')->where('gender_id','=','2')->count('*');
+    return view('home/index',[
+        'title' => 'Dashboard',
+        'totalpayment' => $totalpayment,
+        'totalmember' => $totalmember,
+        'totalmales' => $totalmales,
+        'totalfemales' => $totalfemales,
+    ]);
 })->name('home.index')->middleware('auth');
-
 
 Route::get('/genders',[GenderController::class, 'index'])->name('genders.index')->middleware('auth');
 Route::get('/genders/create',[GenderController::class, 'create'])->name('genders.create')->middleware('auth');
