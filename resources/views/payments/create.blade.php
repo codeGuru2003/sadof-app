@@ -24,7 +24,7 @@
                         </div><br>
                         <div class="form-group">
                             {!! Form::label('payment_date', 'Date') !!}
-                            {!! Form::date('payment_date', null, ['class' => 'form-control']) !!}
+                            {!! Form::datetimeLocal('payment_date', null, ['class' => 'form-control']) !!}
                         </div><br>
                         {!! Form::submit('Create', ['class' => 'btn btn-success']) !!} |
                         <a href="{{ route('payments.index') }}" class="btn btn-primary">Back to List</a>

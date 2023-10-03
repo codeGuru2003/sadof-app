@@ -50,14 +50,16 @@ Route::get('/', function () {
     $totalmember = DB::table('members')->count('*');
     $totalmales = DB::table('members')->where('gender_id','=','1')->count('*');
     $totalfemales = DB::table('members')->where('gender_id','=','2')->count('*');
-    $total_monthly_payment = DB::table('payments')->where('payment_type_id', '=','1')->sum('amount');
+    $total_membership_payment = DB::table('payments')->where('payment_type_id', '=','1')->sum('amount');
+    $total_monthly_due = DB::table('payments')->where('payment_type_id', '=','2')->sum('amount');
     return view('home/index',[
         'title' => 'Dashboard',
         'totalpayment' => $totalpayment,
         'totalmember' => $totalmember,
         'totalmales' => $totalmales,
         'totalfemales' => $totalfemales,
-        'total_monthly_payment' => $total_monthly_payment,
+        'total_membership_payment' => $total_membership_payment,
+        'total_monthly_due' => $total_monthly_due,
     ]);
 })->name('home.index')->middleware('auth');
 

@@ -105,6 +105,13 @@
             @endif
             @yield('content')
           </main>
+          <br>
+          <footer class="bg-light text-center text-lg-start">
+            <div class="text-center p-3">
+              © {{ date("Y") }} Sons and Daughters of Firestone - Developed by:
+              <a class="text-dark" href="https://web.facebook.com/joelpantoejr">Joel Pantoe Jr</a>
+            </div>
+          </footer>
     </div>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 </body>

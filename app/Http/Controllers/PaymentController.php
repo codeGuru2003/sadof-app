@@ -156,12 +156,21 @@ class PaymentController extends Controller
     }
     //Export the Latest Payments Record to PDF
 
-    public function exportPDF(){
+    public function exportToPDF(){
+        $payments = DB::table('payments')
+        ->join('members','payments.member_id','=','members.id')
+        ->join('payment_types','payments.payment_type_id','=','payment_types.id')
+        ->join('users','payments.process_by','=','users.id')
+        ->orderByDesc('payment_date')
+        ->select('payments.*','payment_types.name as payname','users.name as username','members.firstname as mfirstname','members.middlename as mmiddlename', 'members.lastname as mlastname')
+        ->get();
+        $totalpayment = DB::table('payments')->sum('amount');
         $data = [
-            'title' => 'Sample PDF Report',
-            'content' => 'This is a sample PDF report generated in Laravel 8 using DOMPDF.',
+            'title' => 'Payment Report',
+            'payments' => $payments,
+            'totalpayment' => $totalpayment,
         ];
         $pdf = PDF::loadView('reports.payment', $data);
-        return $pdf->download('order.pdf');
+        return $pdf->download('payment_report.pdf');
     }
 }

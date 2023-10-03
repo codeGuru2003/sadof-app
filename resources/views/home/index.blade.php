@@ -4,7 +4,7 @@
         <div class="col-xl-3 col-sm-6 mb-3">
             <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
-                <div class="mr-5">Total Payments (2023) - ${{ $totalpayment }}</div>
+                <div class="mr-5">Total Payments ({{ date("Y") }}) - ${{ $totalpayment }}</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="{{ route('payments.index') }}">
                 <span class="float-left">View Details</span>
@@ -46,7 +46,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">
-          Total Monthly Due Payment Per Year
+          Total Membership Fee Payment Per Year
         </div>
         <div class="card-body">
           <div>
@@ -58,7 +58,7 @@
     <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            Total Membership Fee Payment Per Year
+            Total Monthly Due Payment Per Year
           </div>
           <div class="card-body">
             <div>
@@ -72,15 +72,17 @@
   <script>
     const ctx = document.getElementById('myChart');
     const ptx = document.getElementById('ptxChart');
-    let totalMonthlyFee = {{ $total_monthly_payment }};
+    let totalMembershipFee = {{ $total_membership_payment }};
+    let totalMonthlyDue = {{ $total_monthly_due }};
+    let currentYear = {{ date("Y") }};
 
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['2023'],
+        labels: [currentYear],
         datasets: [{
-          label: 'Sum of Monthly Due Payment',
-          data: [totalMonthlyFee],
+          label: 'Sum of Membership Payment',
+          data: [totalMembershipFee],
           borderWidth: 1
         }]
       },
@@ -96,10 +98,10 @@
     new Chart(ptx, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [currentYear],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Sum of Monthly Payment',
+          data: [totalMonthlyDue],
           borderWidth: 1
         }]
       },

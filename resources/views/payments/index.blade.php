@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-6">
+                    {{-- <div class="col-sm-6">
                         <form action="{{ route('payments.search') }}" method="GET">
                             <div class="input-group w-100">
                                 <span class="input-group-text">From and To</span>
@@ -15,8 +15,14 @@
                                 <input name="endDate" type="date" aria-label="to" class="form-control">
                                 <input class="btn btn-success" type="submit" value="Search" id="inputGroupFileAddon04">
                             </div>
-                        </form><br>
-                    </div>
+                        </form>
+                    </div> --}}
+                    <div class="col-sm-2">
+                    <form action="{{ route('payments.export') }}" method="GET">
+                        <button class="btn btn-success">Export</button>
+                    </form>
+                    <br>
+                </div>
                 </div>
             </div>
             <div class="table-responsive">
