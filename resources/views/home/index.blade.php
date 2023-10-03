@@ -79,7 +79,7 @@
       data: {
         labels: ['2023'],
         datasets: [{
-          label: 'Sum of Monthly Payment',
+          label: 'Sum of Monthly Due Payment',
           data: [totalMonthlyFee],
           borderWidth: 1
         }]

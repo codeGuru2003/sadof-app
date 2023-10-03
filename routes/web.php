@@ -42,6 +42,7 @@ Route::controller(PaymentController::class)->group(function(){
     Route::get('/payments/details/{id}','show')->name('payments.details')->middleware('auth');
     Route::post('/payments/delete/{id}','destroy')->name('payments.delete')->middleware('auth');
     Route::get('/payments/search','search')->name('payments.search')->middleware('auth');
+    Route::get('/payments/exportToPDF', 'exportToPDF')->name('payments.export')->middleware('auth');
 });
 
 Route::get('/', function () {

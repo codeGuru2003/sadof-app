@@ -21,16 +21,6 @@
                         <button class="btn btn-success">Export Members</button>
                     </form>
                 </div> --}}
-                <div class="col-sm-6">
-                    <form action="#" method="GET">
-                        <div class="input-group w-100">
-                            <span class="input-group-text">From and To</span>
-                            <input name="startDate" type="date" aria-label="from" class="form-control">
-                            <input name="endDate" type="date" aria-label="to" class="form-control">
-                            <input class="btn btn-success" type="submit" value="Search" id="inputGroupFileAddon04">
-                        </div>
-                    </form><br>
-                </div>
             </div>
         </div>
         <div class="table-responsive">

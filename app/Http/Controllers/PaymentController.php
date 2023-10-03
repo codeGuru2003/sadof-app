@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PaymentController extends Controller
 {
@@ -151,6 +152,16 @@ class PaymentController extends Controller
             ->select('payments.*','payment_types.name as payname','users.name as username','members.firstname as mfirstname','members.middlename as mmiddlename', 'members.lastname as mlastname')
             ->get();
 
-        return view('payments.index', ['payments' => $payments,'title'=>'index']);
+        return view('payments.index', ['payments' => $payments,'title' => 'Index']);
+    }
+    //Export the Latest Payments Record to PDF
+
+    public function exportPDF(){
+        $data = [
+            'title' => 'Sample PDF Report',
+            'content' => 'This is a sample PDF report generated in Laravel 8 using DOMPDF.',
+        ];
+        $pdf = PDF::loadView('reports.payment', $data);
+        return $pdf->download('order.pdf');
     }
 }
