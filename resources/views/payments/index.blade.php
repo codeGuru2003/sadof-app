@@ -5,6 +5,20 @@
 <br><br>
     <div class="card">
         <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form action="{{ route('payments.search') }}" method="GET">
+                            <div class="input-group w-100">
+                                <span class="input-group-text">From and To</span>
+                                <input name="startDate" type="date" aria-label="from" class="form-control">
+                                <input name="endDate" type="date" aria-label="to" class="form-control">
+                                <input class="btn btn-success" type="submit" value="Search" id="inputGroupFileAddon04">
+                            </div>
+                        </form><br>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 @php
                     $count = 1;
@@ -16,6 +30,7 @@
                             <th>Amount</th>
                             <th>Payment Type</th>
                             <th>Member</th>
+                            <th>Payment Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -26,6 +41,7 @@
                                 <td>{{ $payment->amount }}</td>
                                 <td>{{ $payment->payname }}</td>
                                 <td>{{ $payment->mfirstname .' '. $payment->mmiddlename .' '. $payment->mlastname }}</td>
+                                <td>{{ $payment->payment_date}}</td>
                                 <td>
                                     <div class="container">
                                         <div class="row">
@@ -56,7 +72,7 @@
             </div>
         </div>
     </div>
-    <script text="text/javascript">
+    <script type="text/javascript">
         $(document).ready( function () {
             $('#payments').DataTable();
         });

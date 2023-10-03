@@ -7,7 +7,7 @@
     <div class="card-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
+                {{-- <div class="col-sm-4">
                     <form action="{{ route('members.upload') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">
@@ -15,7 +15,7 @@
                             <input class="btn btn-success" type="submit" value="Upload" id="inputGroupFileAddon04">
                         </div>
                     </form><br>
-                </div>
+                </div> --}}
                 {{-- <div class="col-sm-2">
                     <form action="{{ route('members.export') }}" method="GET">
                         <button class="btn btn-success">Export Members</button>

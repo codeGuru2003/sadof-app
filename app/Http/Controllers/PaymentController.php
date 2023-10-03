@@ -59,7 +59,7 @@ class PaymentController extends Controller
         $payment->payment_type_id = $request->payment_type_id;
         $payment->remarks = $request->remarks;
         $payment->amount = $request->amount;
-        $payment->payment_date = date('y-m-d:h-m-s');
+        $payment->payment_date = $request->payment_date;
         $payment->process_by = Auth::id();
         $payment->save();
         return redirect('/payments')->with('msg', 'Payment successful');
@@ -132,5 +132,25 @@ class PaymentController extends Controller
         $payment = Payment::findOrFail($id);
         $payment->delete();
         return redirect()->route('payments.index')->with('msg', 'Payment deleted successfully');
+    }
+
+    public function search(Request $request){
+        $request->validate([
+            'startDate' => 'required|date',
+            'endDate' => 'required|date',
+        ]);
+
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+
+        $payments = DB::table('payments')
+            ->whereBetween('payment_date', [$startDate, $endDate])
+            ->join('members','payments.member_id','=','members.id')
+            ->join('payment_types','payments.payment_type_id','=','payment_types.id')
+            ->join('users','payments.process_by','=','users.id')
+            ->select('payments.*','payment_types.name as payname','users.name as username','members.firstname as mfirstname','members.middlename as mmiddlename', 'members.lastname as mlastname')
+            ->get();
+
+        return view('payments.index', ['payments' => $payments,'title'=>'index']);
     }
 }

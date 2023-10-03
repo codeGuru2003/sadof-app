@@ -21,18 +21,42 @@ use Illuminate\Auth\Middleware\Authenticate;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::controller(MemberController::class)->group(function () {
+    Route::get('/members', 'index')->name('members.index')->middleware('auth');
+    Route::get('/members/create', 'create')->name('members.create')->middleware('auth');
+    Route::post('/members/create', 'store')->name('members.store')->middleware('auth');
+    Route::get('/members/edit/{id}', 'edit')->name('members.edit')->middleware('auth');
+    Route::post('/members/edit/{id}', 'edit')->name('members.update')->middleware('auth');
+    Route::get('/members/details/{id}', 'show')->name('members.details')->middleware('auth');
+    Route::post('/members/delete/{id}', 'destroy')->name('members.delete')->middleware('auth');
+    Route::post('/members/upload', 'upload')->name('members.upload')->middleware('auth');
+    Route::get('/members/export', 'exportToCSV')->name('members.export')->middleware('auth');
+});
+
+Route::controller(PaymentController::class)->group(function(){
+    Route::get('/payments','index')->name('payments.index')->middleware('auth');
+    Route::get('/payments/create','create')->name('payments.create')->middleware('auth');
+    Route::post('/payments/create','store')->name('payments.store')->middleware('auth');
+    Route::get('/payments/edit/{id}','edit')->name('payments.edit')->middleware('auth');
+    Route::patch('/payments/{id}','update')->name('payments.update')->middleware('auth');
+    Route::get('/payments/details/{id}','show')->name('payments.details')->middleware('auth');
+    Route::post('/payments/delete/{id}','destroy')->name('payments.delete')->middleware('auth');
+    Route::get('/payments/search','search')->name('payments.search')->middleware('auth');
+});
 
 Route::get('/', function () {
     $totalpayment = DB::table('payments')->sum('amount');
     $totalmember = DB::table('members')->count('*');
     $totalmales = DB::table('members')->where('gender_id','=','1')->count('*');
     $totalfemales = DB::table('members')->where('gender_id','=','2')->count('*');
+    $total_monthly_payment = DB::table('payments')->where('payment_type_id', '=','1')->sum('amount');
     return view('home/index',[
         'title' => 'Dashboard',
         'totalpayment' => $totalpayment,
         'totalmember' => $totalmember,
         'totalmales' => $totalmales,
         'totalfemales' => $totalfemales,
+        'total_monthly_payment' => $total_monthly_payment,
     ]);
 })->name('home.index')->middleware('auth');
 
@@ -64,23 +88,6 @@ Route::get('/positions/edit/{id}',[PositionController::class, 'edit'])->name('po
 Route::post('/positions/edit/{id}',[PositionController::class, 'update'])->name('positions.update')->middleware('auth');
 Route::post('/positions/delete/{id}',[PositionController::class, 'destroy'])->name('positions.delete')->middleware('auth');
 
-Route::get('/members', [MemberController::class, 'index'])->name('members.index')->middleware('auth');
-Route::get('/members/create',[MemberController::class, 'create'])->name('members.create')->middleware('auth');
-Route::post('/members/create',[MemberController::class, 'store'])->name('members.store')->middleware('auth');
-Route::get('/members/edit/{id}',[MemberController::class, 'edit'])->name('members.edit')->middleware('auth');
-Route::post('/members/edit/{id}',[MemberController::class, 'update'])->name('members.update')->middleware('auth');
-Route::get('/members/details/{id}',[MemberController::class, 'show'])->name('members.details')->middleware('auth');
-Route::post('/members/delete/{id}',[MemberController::class, 'destroy'])->name('members.delete')->middleware('auth');
-Route::post('members/upload',[MemberController::class, 'upload'])->name('members.upload')->middleware('auth');
-Route::get('members/export',[MemberController::class, 'exportToCSV'])->name('members.export')->middleware('auth');
-
-Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index')->middleware('auth');
-Route::get('/payments/create',[PaymentController::class, 'create'])->name('payments.create')->middleware('auth');
-Route::post('/payments/create',[PaymentController::class, 'store'])->name('payments.store')->middleware('auth');
-Route::get('/payments/edit/{id}',[PaymentController::class, 'edit'])->name('payments.edit')->middleware('auth');
-Route::patch('/payments/{id}',[PaymentController::class, 'update'])->name('payments.update')->middleware('auth');
-Route::get('/payments/details/{id}',[PaymentController::class, 'show'])->name('payments.details')->middleware('auth');
-Route::post('/payments/delete/{id}',[PaymentController::class, 'destroy'])->name('payments.delete')->middleware('auth');
 
 Auth::routes();
 Route::get('/users', function(){

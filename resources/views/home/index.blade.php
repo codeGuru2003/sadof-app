@@ -16,7 +16,7 @@
             <div class="card-body">
                 <div class="mr-5">Total Member - {{ $totalmember }}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
+            <a class="card-footer text-white clearfix small z-1" href="{{ route('members.index') }}">
                 <span class="float-left">View Details</span>
             </a>
             </div>
@@ -26,7 +26,7 @@
             <div class="card-body">
                 <div class="mr-5">Total Male Member - {{ $totalmales }}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
+            <a class="card-footer text-white clearfix small z-1" href="{{ route('members.index') }}">
                 <span class="float-left">View Details</span>
             </a>
             </div>
@@ -36,7 +36,7 @@
             <div class="card-body">
                 <div class="mr-5">Total Female Member - {{ $totalfemales }}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
+            <a class="card-footer text-white clearfix small z-1" href="{{ route('members.index') }}">
                 <span class="float-left">View Details</span>
             </a>
             </div>
@@ -72,14 +72,15 @@
   <script>
     const ctx = document.getElementById('myChart');
     const ptx = document.getElementById('ptxChart');
+    let totalMonthlyFee = {{ $total_monthly_payment }};
 
     new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['2023'],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Sum of Monthly Payment',
+          data: [totalMonthlyFee],
           borderWidth: 1
         }]
       },
