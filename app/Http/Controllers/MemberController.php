@@ -105,20 +105,17 @@ class MemberController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $member = DB::table('members')
-                    ->join('genders', 'members.gender_id', '=', 'genders.id')
-                    ->join('positions', 'members.position_id', '=', 'positions.id')
-                    ->join('birth_months','members.birth_month_id','=','birth_months.id')
-                    ->select('members.*', 'genders.name as gname', 'positions.name as pname','birth_months.name as bname')
-                    ->where('members.id', '=', $id)
-                    ->first();
-        return view('members.edit',[
-            'member' => $member,
+        $genders = Gender::pluck('name','id');
+        $positions = Position::pluck('name','id');
+        $birthmonths = BirthMonth::pluck('name','id');
+        $member = Member::with('gender','position','birthmonth')->find($id);
+        return view('members.edit',compact('genders','positions','birthmonths'),[
             'title' => 'Edit',
+            'member' => $member,
         ]);
     }
 
@@ -129,9 +126,26 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, $id)
     {
-        //
+        $member = Member::find($id);
+        $path = $request->file('image')->store('images','public');
+        $member->firstname = $request->input('firstname');
+        $member->middlename = $request->input('middlename');
+        $member->lastname = $request->input('lastname');
+        $member->dateofbirth = $request->input('dateofbirth');
+        $member->gender_id = $request->input('gender_id');
+        $member->address = $request->input('address');
+        $member->contact_1 = $request->input('contact_1');
+        $member->contact_2 = $request->input('contact_2');
+        $member->email = $request->input('email');
+        $member->is_leader = $request->has('is_leader');
+        $member->position_id = $request->input('position_id');
+        $member->birth_month_id = $request->input('birth_month_id');
+        $member->image = $path;
+
+        $member->save();
+        return redirect('/members')->with('msg', 'Record was updated successfully');
     }
 
     /**

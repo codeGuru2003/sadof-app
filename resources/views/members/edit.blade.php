@@ -10,7 +10,7 @@
                         <div class="card-body p-5">
                             <div class="form-group text-center">
                                 <img src="{{ asset( 'storage/' . $member->image ) }}" alt="Member Image" class="img-rounded" width="80%"><br><br>
-                                <input type="file" name="image" class="form-control" required>
+                                <input type="file" name="image" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="firstname">Middle Name</label>
+                                            <label for="middlename">Middle Name</label>
                                             <input type="text" name="middlename" class="form-control" value="{{ $member->middlename }}">
                                         </div>
                                     </div>
@@ -51,11 +51,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="gender">Gender</label>
-                                            {{-- <select name="gender_id" id="gender_id" class="form-control">
-                                                @foreach($genders as $gendersid => $gendername)
-                                                    <option value="{{ $gendersid }}">{{ $gendername }}</option>
+                                            <select name="gender_id" id="gender_id" class="form-control">
+                                                @foreach($genders as $genderId => $genderName)
+                                                    <option value="{{ $genderId }}" {{ $member->gender_id == $genderId ? 'selected' : '' }}>
+                                                        {{ $genderName }}
+                                                    </option>
                                                 @endforeach
-                                            </select> --}}
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -97,21 +99,25 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="gender">Position</label>
-                                            {{-- <select name="position_id" id="position_id" class="form-control">
-                                                @foreach($positions as $positionid => $positionname)
-                                                    <option value="{{ $positionid }}">{{ $positionname }}</option>
+                                            <select name="position_id" id="position_id" class="form-control">
+                                                @foreach($positions as $positionId => $positionName)
+                                                    <option value="{{ $positionId }}" {{ $member->position_id == $positionId ? 'selected' : '' }}>
+                                                        {{ $positionName }}
+                                                    </option>
                                                 @endforeach
-                                            </select> --}}
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="address">Birth Month</label>
-                                            {{-- <select name="birth_month_id" id="birth_month_id" class="form-control">
-                                                @foreach($birthmonths as $birthmonthid => $birthmonthname)
-                                                    <option value="{{ $birthmonthid }}">{{ $birthmonthname }}</option>
+                                            <select name="birth_month_id" id="birth_month_id" class="form-control">
+                                                @foreach($birthmonths as $birthmonthId => $birthmonthName)
+                                                    <option value="{{ $birthmonthId }}" {{ $member->birth_month_id == $birthmonthId ? 'selected' : '' }}>
+                                                        {{ $birthmonthName }}
+                                                    </option>
                                                 @endforeach
-                                            </select> --}}
+                                            </select>
                                         </div>
                                     </div>
                                 </div><br>

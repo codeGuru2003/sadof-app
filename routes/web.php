@@ -26,7 +26,7 @@ Route::controller(MemberController::class)->group(function () {
     Route::get('/members/create', 'create')->name('members.create')->middleware('auth');
     Route::post('/members/create', 'store')->name('members.store')->middleware('auth');
     Route::get('/members/edit/{id}', 'edit')->name('members.edit')->middleware('auth');
-    Route::post('/members/edit/{id}', 'edit')->name('members.update')->middleware('auth');
+    Route::post('/members/edit/{id}', 'update')->name('members.update')->middleware('auth');
     Route::get('/members/details/{id}', 'show')->name('members.details')->middleware('auth');
     Route::post('/members/delete/{id}', 'destroy')->name('members.delete')->middleware('auth');
     Route::post('/members/upload', 'upload')->name('members.upload')->middleware('auth');
