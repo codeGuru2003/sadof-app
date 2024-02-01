@@ -61,6 +61,8 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ url ('positions') }}">Position</a></li>
                             <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url ('professions') }}">Profession</a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ url ('users') }}">Manage Users</a></li>
                             </ul>
                         </li>

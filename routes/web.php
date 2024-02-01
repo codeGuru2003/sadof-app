@@ -6,6 +6,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ProfessionController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -100,3 +101,10 @@ Route::get('/users', function(){
         'users' => $users,
     ]);
 })->name('user');
+
+//Profession Routes
+Route::controller(ProfessionController::class)->group(function(){
+    Route::get('professions','index')->middleware('auth')->name('professions.index');
+    Route::get('professions/create','create')->middleware('auth')->name('professions.create');
+    Route::post('professions/create','store')->middleware('auth')->name('professions.store');
+});
